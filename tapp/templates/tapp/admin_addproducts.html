@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/gif">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/admin_style.css' %}">
+</head>
+
+<body style="margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
+    <h1 style="text-align: center;color: white;"><strong>Add Products</strong></h1>
+    <form class="col" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputEmail1">Product Name</label>
+            <input name="name" type="text" class="form-control w-35 p-2" id="exampleInputEmail1"
+                aria-describedby="emailHelp" placeholder="Enter Product Full Name" required>
+            <small id="emailHelp" style="color: white;" class="form-text text-muted">Please enter the full name of product</small>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Category</label>
+            <select class="form-control w-35 p-2" id="category" name="category" required>
+                <option value="" style="color: gray;">--Select Category--</option>
+                <option value="Flagship">Flagship</option>
+                <option value="Mid-Range">Mid-Range</option>
+                <option value="Budget">Budget</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Manufacturer</label>
+            <input name="manufacturer" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Manufacturer" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Model</label>
+            <input name="model" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Model" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Processor</label>
+            <input name="processor" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Processor" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">RAM Capacity</label>
+            <input name="ram" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter RAM Capacity" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Internal Storage Capacity</label>
+            <input name="rom" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Internal Storage Capacity" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Battery Capacity</label>
+            <input name="battery" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Battery Capacity" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Rear Camera/s Configuration</label>
+            <input name="rearc" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Rear Camera/s Configuration" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Front Camera/s Configuration</label>
+            <input name="frontc" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Front Camera/s Configuration" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Display Type</label>
+            <input name="displaytype" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Display Type" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Display Size</label>
+            <input name="displaysize" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Display Size" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Display Resolution</label>
+            <input name="displayres" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Display Resolution" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Display Refresh Rate</label>
+            <input name="refreshrate" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Display Refresh Rate" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Operating System</label>
+            <input name="os" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Operating System" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Charger and Charger Type</label>
+            <input name="charger" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Charger and Charger Type" required>
+        </div>
+
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Release Date</label>
+            <input name="release_date" type="text" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Date as 'MM/YYYY'" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Network connectivity</label>
+            <input name="network" type="text" class="form-control w-35 p-2" id="exampleInputPassword1" placeholder="Enter connectivity types separated by commas" required>
+        </div>
+        <!-- <div class="form-group">
+            <label for="exampleInputPassword1">Description</label>
+            <textarea type="text" class="form-control w-35 p-2" id="exampleInputPassword1" placeholder="Enter Description" required> </textarea>
+        </div> -->
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Price in ₹</label>
+            <input name="price" type="number" class="form-control w-35 p-2" id="exampleInputPassword1"
+                placeholder="Enter Price in ₹" required>
+        </div>
+        <div class="form-group">
+            <label style="color: white;" for="exampleInputPassword1">Image</label>
+            <input name="image" type="file" class="form-control w-35 p-2"
+                accept="image/png, image/jpeg, image/svg, image/bmp" id="exampleInputPassword1"
+                placeholder="Choose a file" required>
+        </div>
+        <button type="submit" onclick="submitFunction()" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script>
+        function submitFunction() {
+            alert("Product Added!");
+        }
+    </script>
+</body>
+
+</html>

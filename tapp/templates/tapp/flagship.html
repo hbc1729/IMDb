@@ -1,0 +1,44 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Flagship</title>
+</head>
+{% extends 'tapp/main.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="row">
+    {% for product in products %}
+
+    <div class="col-lg-4 card-dark border-info mb-3">
+     
+            <img class="img-thumbnail card-img-top " src="{{ product.image.url }}" style="height=350px; width=350px;"
+                alt="abc">
+     
+
+
+
+        <div class="box-element product card-body ">
+            <h4 style="color: black;"><strong>{{product.product_name}}</strong></h4>
+            <hr>
+            <a href="{% url 'productView' %}"><button class="btn btn-outline-success proView"
+                    data-product="{{product.id}}" data-action="view" href="#">View</button></a>
+            <h4 style="display: inline-block; float: right; color: black;"><strong>${{product.base_price}}</strong></h4>
+
+        </div>
+    </div>
+
+
+    {% endfor %}
+</div>
+
+{% endblock content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+
+</body>
+
+</html>

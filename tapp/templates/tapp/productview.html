@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product-View</title>
+    {% extends 'tapp/main.html' %}
+
+</head>
+
+<body>
+    {% load static %}
+    {% block content %}
+    <div class="card mb-3 bg-secondary" style="width: 100%;height:max-content;margin-top:10px">
+
+        <div class="row no-gutters">
+
+            <div class="col-md-4">
+                <br><br>
+                <img src="{{product.image.url}}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title"><strong>{{product.product_name}}</strong>&nbsp;<small
+                            style="font-size:small;">{{product.release_date}}</small>
+                        <h4 style="float: right;">{{avg|floatformat}} &starf;</h4>
+                    </h4>
+                    <h3>₹{{product.base_price}}</h3>
+                    <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                    <table class="table table-dark table-striped">
+                        <tr>
+                            <td><strong>Manufacturer</strong></td>
+                            <td>{{product.manufacturer}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Model</strong></td>
+                            <td>{{product.model}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processor</strong></td>
+                            <td>{{product.processor}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Display Type</strong></td>
+                            <td>{{product.display_type}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Display Size</strong></td>
+                            <td>{{product.display_size}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Display Resolution</strong></td>
+                            <td>{{product.display_resolution}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Display Refresh Rate</strong></td>
+                            <td>{{product.refresh_rate}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RAM Capacity</strong></td>
+                            <td>{{product.ram}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Internal Storage Capacity</strong></td>
+                            <td>{{product.rom}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Battery Capacity</strong></td>
+                            <td>{{product.battery_capacity}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Connectivity</strong></td>
+                            <td>{{product.network_connectivity}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rear Camera/s Configuration</strong></td>
+                            <td>{{product.rear_cameras}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Front Camera/s Configuration</strong></td>
+                            <td>{{product.front_cameras}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operating System</strong></td>
+                            <td>{{product.operating_system}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Charger and Charger Type</strong></td>
+                            <td>{{product.charger}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if username %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">{{reviewText}}</span>
+            </div>
+            <textarea name='review' class="form-control" aria-label="With textarea" {{readonly}} required></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="formControlRange" style="color: black;">Leave your Rating</label>
+            <input name="rating" type="range" min="0" max="5" step="0.1" class="form-control-range"
+                id="formControlRange" {{disabled}}>
+            <small style="color: black;">Rating: </small>
+            <p id="demo" style="color: black;" ></p>
+        </div>
+       
+        <button style="float: right;" type="submit" class="btn btn-primary" {{disabled}}>Submit</button>
+    </form>
+    
+
+    {% else %}
+   
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Write your review!</span>
+            </div>
+            <textarea name='review' class="form-control" aria-label="With textarea"  required></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+            <label style="color: black;" for="formControlRange">Leave your Rating</label>
+            <input name="rating" style="color: black;" type="range" min="0" max="5" step="0.1" class="form-control-range"
+                id="formControlRange" >
+            <small>Rating: </small>
+            <p style="color: black;" id="demo"></p>
+        </div>
+        
+        <button style="float: right;" type="submit" onclick="alertFunction()" class="btn btn-primary">Submit</button>
+
+    {% endif %}
+
+
+
+    <br>
+    <hr><br>
+    {% if reviews %}
+    <div class="row">
+        {% for review in reviews %}
+        <div class="col-lg-3 col-sm-6 col-md-4 ">
+            <div class="card text-white {{cards_colors | random}} mb-3" style="max-width: 18rem;">
+                <div class="card-header">{{review.username.username}}<p style="float: right;">{{review.rating}} &starf;
+                    </p>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{review.review}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script>
+    
+        var slider = document.getElementById("formControlRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+
+        function alertFunction(){
+            alert('Login to write review!');
+        }
+
+    </script>
+
+    {% endblock content %}
+
+</body>
+
+</html>

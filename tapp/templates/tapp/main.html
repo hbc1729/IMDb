@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <!-- <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/gif"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMDb</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+        <a class="navbar-brand" href="#">
+            <!-- <img src="{% static 'img/favicon.png' %}" width="75" height="70" alt=""> -->
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'flagship' %}">Flagship</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'mid_range' %}">Mid-Range</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'budget' %}">Budget</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li> -->
+            </ul>
+            
+            {% if username == False %}
+            &nbsp;&nbsp;<button id="myBtn" class="btn btn-light myBtn" data-toggle="modal" data-target="#myModal1"
+                type="submit">Sign In</button>
+
+            {% endif %}
+
+            {% if username %}
+            <h5><i><strong>Hello, {{ username }} &nbsp; </strong></i></h5>
+            <a href="{% url 'your_reviews' %}"><button id="myBtn" class="btn btn-success myBtn" type="submit">Your Reviews</button></a>
+            <form class="form-inline my-2 my-lg-0" action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                &nbsp;&nbsp;<button id="myBtn" class="btn btn-light myBtn" data-toggle="modal" data-target="#myModal1"
+                    type="submit">Logout</button>
+            </form>
+            {% endif %}
+
+        </div>
+
+        <!--Sign-in Modal -->
+        <div style="color: black;" class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+                    </div>
+
+                    <form role="form" action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <input name="inusername" type="text" class="form-control" placeholder="Username"
+                                required><br>
+                            <input name="inpassword" type="password" value="" id="myInput" class="form-control"
+                                placeholder="Password" required><br>
+                            <input type="checkbox" onclick="myFunction()"> &nbsp; Show Password
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="1">Sign In</button>
+                            <button type="button" class="btn btn-success" id="signin">Sign Up</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                type="reset">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Sign-Up Modal -->
+        <div style="color: black;" class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+                    </div>
+                    <form role="form" action="{% url 'signup' %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <input name="upemail" type="email" class="form-control" placeholder="Email" required><br>
+                            <input name="upusername" type="text" class="form-control" placeholder="Username"
+                                required><br>
+                            <input name="uppassword" type="password" id="smyInput" class="form-control"
+                                placeholder="Password" required><br>
+                            <input type="checkbox" onclick="smyFunction()"> &nbsp; Show Password
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="submit" id="2">Sign Up</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                type="reset">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

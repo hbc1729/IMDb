@@ -1,0 +1,5 @@
+1. $ to rupees
+2. Light theme
+3. Sticky header
+4. Edit button
+5. 
